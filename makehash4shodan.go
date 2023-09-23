@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"github.com/twmb/murmur3"
 	"io/ioutil"
-	"log"
 	"net/http"
+	"os"
 	"strings"
 )
 
@@ -23,8 +23,11 @@ func main() {
 	flag.Parse()
 	faviconURL = *url
 	if *url == "https://example.com" {
-		flag.PrintDefaults()
-		log.Fatal("URL not set")
+		fmt.Println("[!] Error!")
+		fmt.Printf("[-] Use: makehash4shodan -u http://example.com/favicon.ico\n")
+		fmt.Println("[i] Get all hosts with the same favicon!")
+		os.Exit(1)
+
 	}
 	if !strings.HasSuffix(*url, "/favicon.ico") {
 		faviconURL, err = getFaviconURL(*url)
