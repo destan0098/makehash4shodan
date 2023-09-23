@@ -118,8 +118,14 @@ func fetchFavicon(url string) int32 {
 	fix := 76
 	s := make([]string, 0)
 
-	f, _ := http.Get(url)
-	content, _ := ioutil.ReadAll(f.Body)
+	f, errs := http.Get(url)
+	if errs != nil {
+		fmt.Println("[-] Error On Loading Page ", errs)
+	}
+	content, err := ioutil.ReadAll(f.Body)
+	if err != nil {
+		fmt.Println("[-] Error On Loading Page Contents", errs)
+	}
 	str := base64.StdEncoding.EncodeToString(content)
 
 	// slice up string
